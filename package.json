@@ -1,0 +1,29 @@
+{
+  "name": "read-comments",
+  "version": "1.0.0",
+  "description": "A npm tool for reading and classifying comments",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/miZye/read-comments.git"
+  },
+  "author": "MikeZyeman",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/miZye/read-comments/issues"
+  },
+  "homepage": "https://github.com/miZye/read-comments#readme",
+  "dependencies": {
+    "@types/fs-extra": "^5.0.5",
+    "@types/node": "^11.9.4",
+    "chalk": "^2.4.2",
+    "commander": "^2.19.0",
+    "fs-extra": "^7.0.1",
+    "inquirer": "^6.2.2",
+    "lodash": "^4.17.11",
+    "typescript": "^3.3.3"
+  }
+}
