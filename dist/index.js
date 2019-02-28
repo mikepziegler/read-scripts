@@ -6,11 +6,17 @@ var __importStar = (this && this.__importStar) || function (mod) {
     result["default"] = mod;
     return result;
 };
-var JS = __importStar(require("./types/js"));
-var TS = __importStar(require("./types/ts"));
+const JS = __importStar(require("./types/js"));
+const TS = __importStar(require("./types/ts"));
+const HTML = __importStar(require("./types/html"));
+const Css = __importStar(require("./types/css"));
+const JSON = __importStar(require("./types/json"));
 var readScript;
 (function (readScript) {
     readScript.js = JS.js;
     readScript.ts = TS.ts;
+    readScript.html = HTML.html;
+    readScript.css = Css.css;
+    readScript.json = JSON.json;
 })(readScript || (readScript = {}));
 module.exports = readScript;
