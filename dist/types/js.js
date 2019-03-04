@@ -3,20 +3,24 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const util_1 = require("../util/util");
 const util = new util_1.Utilities();
 class js {
-    getOLComments(file) {
+    getOneLineC(file) {
         let output = util.getCode(file);
+        let comments = util.cutRegex(output, /\/{2}(.*)/g);
+        return comments;
     }
     getComments(file) {
         let output = util.getCode(file);
+        let comments = util.cutRegex(output, /\/\*\n(.*?\n)*( )?\*\/\n/g);
     }
     getJsDoc(file) {
+        let result = [];
         let output = util.getCode(file);
         let comments = util.cutRegex(output, /\/\*\*\n( \*(.*?)*\n?)*( )*\*\//g);
         let JsDoc = util.pickJSDoc(comments);
-        console.log(comments);
-    }
-    getInterface(file) {
-        let output = util.getCode(file);
+        JsDoc.forEach((e) => {
+            util.joinParts(e);
+        });
+        return JsDoc;
     }
     getClassname(file) {
         let output = util.getCode(file);
@@ -24,7 +28,7 @@ class js {
     getFunctions(file) {
         let output = util.getCode(file);
     }
-    getImports(file) {
+    getRequire(file) {
         let output = util.getCode(file);
     }
     getExports(file) {

@@ -1,18 +1,16 @@
 import { js } from "./js";
 
-import fs from "fs-extra";
+import { Utilities } from "../util/util";
 
-var _ = require('lodash');
-var _ = require('lodash/core');
-var fp = require('lodash/fp');
-
-var array = require('lodash/array');
-var object = require('lodash/fp/object');
-
-var at = require('lodash/at');
-var curryN = require('lodash/fp/curryN');
-
+const util = new Utilities();
 
 export class ts extends js {
 
+    getInterfaces(file: string) {
+
+    }
+
+    getImports(file: string) {
+
+    }
 }
