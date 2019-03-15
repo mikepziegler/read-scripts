@@ -2,61 +2,55 @@ import { Utilities } from "../util/util";
 
 const util = new Utilities();
 
-interface Tag {
-    type: string;
-    text: string;
-}
-
-interface Comment {
-    id: number;
-    name: string;
-    tags: [
-        Tag
-        ];
-}
-
 export class js {
 
+    output: any;
+    comments: any;
+
     public getOneLineC(file: string) {
-        let output = util.getCode(file);
-        let comments = util.cutRegex(output, /\/{2}(.*)/g);
-        return comments;
+        this.output = util.getCode(file);
+        this.comments = util.cutRegex(this.output, /\/{2}(.*)/g);
+        return this.comments;
     }
 
     public getComments(file: string) {
         let output = util.getCode(file);
-        let comments = util.cutRegex(output, /\/\*\n(.*?\n)*( )?\*\/\n/g);
+        this.comments = util.cutRegex(output, /\/\*\n(.*?\n)*( )?\*\/\n/g);
+        return this.comments;
     }
 
     public getJsDoc(file: string) {
         let result: any[] = [];
 
-        let output = util.getCode(file);
-        let comments = util.cutRegex(output, /\/\*\*\n( \*(.*?)*\n?)*( )*\*\//g);
+        this.output = util.getCode(file);
+        this.comments = util.cutRegex(this.output, /\/\*\*\n( \*(.*?)*\n?)*( )*\*\//g);
 
-        let JsDoc = util.pickJSDoc(comments);
+        let JsDoc = util.pickJSDoc(this.comments);
 
         JsDoc.forEach((e) => {
-            util.joinParts(e);
-        })
+            result = [...result, util.joinParts(e)];
+        });
 
-
-        return JsDoc;
+        return result;
     }
 
     public getClassname(file: string) {
-        let output = util.getCode(file);
+        this.output = util.getCode(file);
+        return this.output;
     }
 
     public getFunctions(file: string) {
-        let output = util.getCode(file);
+        this.output = util.getCode(file);
+        return this.output;
     }
 
     public getRequire(file: string) {
-        let output = util.getCode(file);
+        this.output = util.getCode(file);
+        return this.output;
     }
 
     public getExports(file: string) {
-        let output = util.getCode(file);
+        this.output = util.getCode(file);
+        return this.output;
     }
 }

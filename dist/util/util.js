@@ -4,13 +4,17 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const fs_extra_1 = __importDefault(require("fs-extra"));
+/*
 var _ = require('lodash');
 var _ = require('lodash/core');
 var fp = require('lodash/fp');
+
 var array = require('lodash/array');
 var object = require('lodash/fp/object');
+
 var at = require('lodash/at');
 var curryN = require('lodash/fp/curryN');
+*/
 class Utilities {
     getCode(file) {
         return fs_extra_1.default.readFileSync(file, 'utf8');
@@ -20,7 +24,7 @@ class Utilities {
     }
     pickJSDoc(text) {
         let arr = [];
-        if (this.isNull(text)) {
+        if (text === null) {
             return [];
         }
         text.forEach((value) => {
@@ -35,41 +39,26 @@ class Utilities {
     }
     joinParts(arr) {
         let res = [];
-        let index = this.everyIndexOf(arr, ['@']);
-        console.log(arr.length);
-        for (let i = 0; i < index.length; i++) {
-        }
-        console.log(res);
-        index.forEach((e) => {
+        let index = this.everyIndexOf(arr, '@');
+        let parts = [...index];
+        if (index[index.length - 1] !== arr.length - 1)
+            parts = [...parts, arr.length - 1];
+        parts.forEach((v, i, a) => {
+            res = [...res, arr.slice(a[i - 1], v).join(' ')];
         });
-        return [];
+        return res;
     }
-    everyIndexOf(arr, args) {
-        let list = [];
-        args.forEach((d) => {
-            let obj = {}, pos = [], pattern = new RegExp(this.toRegex(d));
-            for (let i = 0; i < arr.length; i++) {
-                if (pattern.test(arr[i])) {
-                    pos = [...pos, i];
-                }
+    everyIndexOf(arr, arg) {
+        let pos = [], pattern = new RegExp(this.toRegex(arg));
+        for (let i = 0; i < arr.length; i++) {
+            if (pattern.test(arr[i])) {
+                pos = [...pos, i];
             }
-            obj['value'] = d;
-            obj['pos'] = pos;
-            list = [...list, obj];
-        });
-        return list;
+        }
+        return pos;
     }
     toRegex(pattern) {
         return pattern.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-    }
-    isNull(x) {
-        return typeof x === null;
-    }
-    isString(x) {
-        return typeof x === 'string';
-    }
-    handleError(error) {
-        console.error(`Script does not include any ${error}`);
     }
 }
 exports.Utilities = Utilities;

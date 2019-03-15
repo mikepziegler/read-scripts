@@ -4,35 +4,40 @@ const util_1 = require("../util/util");
 const util = new util_1.Utilities();
 class js {
     getOneLineC(file) {
-        let output = util.getCode(file);
-        let comments = util.cutRegex(output, /\/{2}(.*)/g);
-        return comments;
+        this.output = util.getCode(file);
+        this.comments = util.cutRegex(this.output, /\/{2}(.*)/g);
+        return this.comments;
     }
     getComments(file) {
         let output = util.getCode(file);
-        let comments = util.cutRegex(output, /\/\*\n(.*?\n)*( )?\*\/\n/g);
+        this.comments = util.cutRegex(output, /\/\*\n(.*?\n)*( )?\*\/\n/g);
+        return this.comments;
     }
     getJsDoc(file) {
         let result = [];
-        let output = util.getCode(file);
-        let comments = util.cutRegex(output, /\/\*\*\n( \*(.*?)*\n?)*( )*\*\//g);
-        let JsDoc = util.pickJSDoc(comments);
+        this.output = util.getCode(file);
+        this.comments = util.cutRegex(this.output, /\/\*\*\n( \*(.*?)*\n?)*( )*\*\//g);
+        let JsDoc = util.pickJSDoc(this.comments);
         JsDoc.forEach((e) => {
-            util.joinParts(e);
+            result = [...result, util.joinParts(e)];
         });
-        return JsDoc;
+        return result;
     }
     getClassname(file) {
-        let output = util.getCode(file);
+        this.output = util.getCode(file);
+        return this.output;
     }
     getFunctions(file) {
-        let output = util.getCode(file);
+        this.output = util.getCode(file);
+        return this.output;
     }
     getRequire(file) {
-        let output = util.getCode(file);
+        this.output = util.getCode(file);
+        return this.output;
     }
     getExports(file) {
-        let output = util.getCode(file);
+        this.output = util.getCode(file);
+        return this.output;
     }
 }
 exports.js = js;
