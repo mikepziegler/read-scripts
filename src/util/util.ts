@@ -18,7 +18,7 @@ export class Utilities {
         return fs.readFileSync(file, 'utf8');
     }
 
-    public cutRegex(text: string, regexp: any) {
+    public cutRegex(text: string, regexp: any): any {
         return text.match(regexp);
     }
 

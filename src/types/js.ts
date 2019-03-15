@@ -4,7 +4,7 @@ const util = new Utilities();
 
 export class js {
 
-    output: any;
+    output: string = "";
     comments: any;
 
     public getOneLineC(file: string) {
