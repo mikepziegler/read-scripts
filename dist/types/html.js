@@ -1,7 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const util_1 = require("../util/util");
-const util = new util_1.Utilities();
-class html {
+//import { Utilities } from "../util/util";
+const file_1 = require("./file");
+//const util = new Utilities();
+class html extends file_1.file {
 }
 exports.html = html;

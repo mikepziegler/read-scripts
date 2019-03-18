@@ -1,7 +1,10 @@
-import { Utilities } from "../util/util";
+//import { Utilities } from "../util/util";
+import { file } from "./file";
 
-const util = new Utilities();
+//const util = new Utilities();
 
-export class html {
+export class html extends file {
+
+
 
 }

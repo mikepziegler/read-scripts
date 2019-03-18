@@ -1,16 +1,14 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const util_1 = require("../util/util");
-const file_1 = require("./file");
 const util = new util_1.Utilities();
-class json extends file_1.file {
+class file {
     constructor() {
-        super(...arguments);
         this.output = "";
     }
-    getObjects(file) {
+    getFile(file) {
         this.output = util.getCode(file);
-        return this.output;
+        return util.cutEnter(this.output);
     }
 }
-exports.json = json;
+exports.file = file;

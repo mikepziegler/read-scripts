@@ -4,23 +4,15 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const fs_extra_1 = __importDefault(require("fs-extra"));
-/*
-var _ = require('lodash');
-var _ = require('lodash/core');
-var fp = require('lodash/fp');
-
-var array = require('lodash/array');
-var object = require('lodash/fp/object');
-
-var at = require('lodash/at');
-var curryN = require('lodash/fp/curryN');
-*/
 class Utilities {
     getCode(file) {
         return fs_extra_1.default.readFileSync(file, 'utf8');
     }
     cutRegex(text, regexp) {
         return text.match(regexp);
+    }
+    cutEnter(text) {
+        return text.split('\n');
     }
     pickJSDoc(text) {
         let arr = [];
@@ -48,6 +40,26 @@ class Utilities {
         });
         return res;
     }
+    extractSBrackets(text) {
+        let arr = this.cutEnter(text);
+        let indexBO = this.everyIndexOf(arr, '{');
+        let indexBC = this.everyIndexOf(arr, '}');
+        let BO = [];
+        indexBO.forEach((value) => {
+            BO = [...BO, [value, this.countChar(arr[value], '{')]];
+        });
+        let BC = [];
+        indexBC.forEach((value) => {
+            BC = [...BC, [value, this.countChar(arr[value], '}')]];
+        });
+        console.log(BO);
+        console.log(BC);
+    }
+    filterout(arr, out) {
+    }
+    toRegex(pattern) {
+        return pattern.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    }
     everyIndexOf(arr, arg) {
         let pos = [], pattern = new RegExp(this.toRegex(arg));
         for (let i = 0; i < arr.length; i++) {
@@ -57,8 +69,13 @@ class Utilities {
         }
         return pos;
     }
-    toRegex(pattern) {
-        return pattern.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    countChar(text, arg) {
+        let hit = 0;
+        text.split('').forEach((value) => {
+            if (value === arg)
+                hit += 1;
+        });
+        return hit;
     }
 }
 exports.Utilities = Utilities;

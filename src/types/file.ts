@@ -1,16 +1,14 @@
 import { Utilities } from "../util/util";
 
-import { file } from "./file";
-
 const util = new Utilities();
 
-export class json extends file {
+export class file {
 
     output: string = "";
 
-    getObjects(file: string) {
+    getFile(file: string) {
         this.output = util.getCode(file);
-        return this.output;
+        return util.cutEnter(this.output);
     }
 
 }

@@ -1,17 +1,5 @@
 import fs from "fs-extra";
 
-/*
-var _ = require('lodash');
-var _ = require('lodash/core');
-var fp = require('lodash/fp');
-
-var array = require('lodash/array');
-var object = require('lodash/fp/object');
-
-var at = require('lodash/at');
-var curryN = require('lodash/fp/curryN');
-*/
-
 export class Utilities {
 
     public getCode(file: string): string {
@@ -20,6 +8,10 @@ export class Utilities {
 
     public cutRegex(text: string, regexp: any): any {
         return text.match(regexp);
+    }
+
+    public cutEnter(text: string) {
+        return text.split('\n');
     }
 
     public pickJSDoc(text: any): any[] {
@@ -56,6 +48,36 @@ export class Utilities {
         return res;
     }
 
+    public extractSBrackets(text: string) {
+
+        let arr = this.cutEnter(text);
+
+        let indexBO = this.everyIndexOf(arr, '{');
+        let indexBC = this.everyIndexOf(arr, '}');
+
+        let BO: any[] = [];
+        indexBO.forEach((value) => {
+            BO = [...BO, [value, this.countChar(arr[value], '{')]]
+        });
+
+        let BC: any = [];
+        indexBC.forEach((value) => {
+            BC = [...BC, [value, this.countChar(arr[value], '}')]]
+        });
+
+        console.log(BO);
+        console.log(BC);
+
+    }
+
+    public filterout(arr: string[], out: string) {
+
+    }
+
+    private toRegex(pattern: string): string {
+        return pattern.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    }
+
     private everyIndexOf(arr: string[], arg: string): any[] {
 
         let pos: number[] = [],
@@ -67,12 +89,17 @@ export class Utilities {
             }
         }
 
-
         return pos;
     }
 
-    private toRegex(pattern: string): string {
-        return pattern.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    private countChar(text: string, arg: string) {
+        let hit: number = 0;
+
+        text.split('').forEach((value) => {
+            if (value === arg) hit += 1;
+        });
+
+        return hit;
     }
 
 }

@@ -1,10 +1,10 @@
 import { Utilities } from "../util/util";
+import { file } from "./file";
 
 const util = new Utilities();
 
-export class js {
+export class js extends file {
 
-    output: string = "";
     comments: any;
 
     public getOneLineC(file: string) {
@@ -15,7 +15,7 @@ export class js {
 
     public getComments(file: string) {
         let output = util.getCode(file);
-        this.comments = util.cutRegex(output, /\/\*\n(.*?\n)*( )?\*\/\n/g);
+        this.comments = util.cutRegex(output, /\/\*\n(.*?\n)*( )?\*\//g);
         return this.comments;
     }
 
@@ -34,17 +34,24 @@ export class js {
         return result;
     }
 
-    public getClassname(file: string) {
+    public getClassname(file: string) { //if you are using es6 or later
         this.output = util.getCode(file);
+
+        /* Maybe same as funcions */
+        util.extractSBrackets(this.output);
+
         return this.output;
     }
 
     public getFunctions(file: string) {
         this.output = util.getCode(file);
+
+        util.extractSBrackets(this.output);
+
         return this.output;
     }
 
-    public getRequire(file: string) {
+    public getRequires(file: string) {
         this.output = util.getCode(file);
         return this.output;
     }
